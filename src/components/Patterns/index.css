@@ -1,0 +1,28 @@
+.patterns-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-spinner-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-select-container {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+.pattern-data-container {
+  flex-grow: 2;
+}

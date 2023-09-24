@@ -1,0 +1,16 @@
+.not-found-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found-image {
+  width: 300px;
+}
+
+@media (max-width: 768px) {
+  .not-found-image {
+    width: 200px;
+  }
+}

@@ -1,0 +1,9 @@
+.q-text {
+  font-family: var(--nato);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.code-and-output {
+  height: 230px;
+}

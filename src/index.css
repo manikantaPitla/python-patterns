@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+/* a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+} */
+
+:root {
+  --main-color: #ef233c;
+
+  --bg-white: #ffffff;
+  --bg-dark: #000000;
+  --text-white: #ffffff;
+  --text-dark: #000000;
+  --text-light-dark: #212529;
+
+  --poppins: "Poppins", sans-serif;
+  --nato: "Noto Sans", sans-serif;
+
+  --light-dark: rgba(0, 0, 0, 0.1);
+  --color-greyish: rgba(0, 0, 0, 0.3);
+  --light-white: #f8f7ff;
+
+  --fsize-24: 24px;
+  --fsize-22: 22px;
+  --fsize-18: 18px;
+  --fsize-16: 16px;
+  --fsize-14: 14px;
+  --fsize-13: 13px;
+  --fsize-12: 12px;
+}
+
+.heading {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.para {
+  font-family: var(--nato);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.para-poppins {
+  font-family: var(--poppins);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.hr-line {
+  margin: 30px 0px;
+}
