@@ -11,6 +11,8 @@ const filterSelectList = [
   { id: v4(), value: "Rectangle" },
   { id: v4(), value: "Square" },
   { id: v4(), value: "Triangle" },
+  { id: v4(), value: "M Pattern" },
+  { id: v4(), value: "Pyramid" },
 ];
 
 class Patterns extends Component {
@@ -26,7 +28,8 @@ class Patterns extends Component {
 
   getAllPatterns = async () => {
     try {
-      const requestUrl = "https://expensive-pear-squirrel.cyclic.cloud/";
+      //   const requestUrl = "https://expensive-pear-squirrel.cyclic.cloud/";
+      const requestUrl = "https://python-patterns-server.onrender.com/";
 
       const response = await fetch(requestUrl);
       const data = await response.json();
@@ -63,6 +66,8 @@ class Patterns extends Component {
       case filterSelectList[1].value:
       case filterSelectList[2].value:
       case filterSelectList[3].value:
+      case filterSelectList[4].value:
+      case filterSelectList[5].value:
         filteredList = patternsDataList.filter((each) =>
           each.codeType.toLowerCase().includes(filteredListType.toLowerCase())
         );

@@ -7,6 +7,10 @@ import "./index.css";
 class CodeMirrorEditor extends Component {
   render() {
     const { code } = this.props;
+    const placeholder = `M = int(input())
+    N = int(input())
+    for i in range(M):
+      print( "* " * N )`;
 
     return (
       <CodeMirror
@@ -19,6 +23,7 @@ class CodeMirrorEditor extends Component {
         onChange={(value, viewUpdate) => {
           console.log("value:", value);
         }}
+        placeholder={placeholder}
       />
     );
   }

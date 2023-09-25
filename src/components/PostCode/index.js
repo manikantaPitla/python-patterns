@@ -12,6 +12,7 @@ class PostCode extends Component {
     codeInput: "",
     codeOutput: "",
     code: "",
+    responseMsg: "",
   };
 
   onChangeCodeType = (e) => {
@@ -68,15 +69,16 @@ class PostCode extends Component {
       body: JSON.stringify(postData),
     };
 
-    const reqUrl = "https://bright-teal-polo-shirt.cyclic.cloud/postcode";
+    // const reqUrl = "https://bright-teal-polo-shirt.cyclic.cloud/postcode";
+    const reqUrl = "https://python-patterns-server.onrender.com/postcode";
 
     try {
       const response = await fetch(reqUrl, postMethod);
       if (!response.ok) {
+        alert(response.status);
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      console.log(data.message);
 
       this.setState({
         id: v4(),
@@ -86,15 +88,23 @@ class PostCode extends Component {
         codeInput: "",
         codeOutput: "",
         code: "",
+        responseMsg: data.message,
       });
     } catch (error) {
+      alert(error);
       console.error("Fetch error:", error);
     }
   };
 
   render() {
-    const { codeDescription, codeHint, codeInput, codeOutput, code } =
-      this.state;
+    const {
+      codeDescription,
+      codeHint,
+      codeInput,
+      codeOutput,
+      code,
+      responseMsg,
+    } = this.state;
 
     return (
       <div className="post-code-container">
@@ -132,6 +142,7 @@ class PostCode extends Component {
                 <option value="Two Right Angled Triangle">
                   Two Right Angled Triangle
                 </option>
+                <option value="M Pattern with *">M Pattern With *</option>
               </select>
               <label className="pc-input-label" htmlFor="codeDescription">
                 Code description
@@ -179,17 +190,29 @@ class PostCode extends Component {
                 onChange={this.onChangeCodeOutput}
                 value={codeOutput}
               ></textarea>
-              <button type="submit" className="btn bg-dark text-white mb-4">
+
+              <button
+                type="submit"
+                className="btn bg-dark text-white mt-2 mb-4"
+              >
                 Submit
               </button>
+              <p className="para text-success">{responseMsg}</p>
             </form>
           </div>
           <hr className="pc-vr-line bg-dark" />
           <div className="pc-code-output-container">
-            <h1 className="heading">Code output</h1>
-
             <div>
-              <CodeMirrorEditor code={code} />
+              <h1 className="heading">Code</h1>
+              <CodeMirrorEditor className="pc-code-output-ground" code={code} />
+            </div>
+            <hr />
+            <div>
+              <h1 className="heading">Code output</h1>
+              <CodeMirrorEditor
+                className="pc-code-output-ground"
+                code={codeOutput}
+              />
             </div>
           </div>
         </div>
