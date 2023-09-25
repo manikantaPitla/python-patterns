@@ -24,7 +24,7 @@ const Home = (props) => {
       <div className="d-flex justify-content-start justify-content-md-center">
         <button
           type="button"
-          className="explore-btn btn bg-dark text-white shadow-0"
+          className="explore-btn btn shadow-0"
           onClick={routeToPatterns}
         >
           Explore

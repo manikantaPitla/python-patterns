@@ -11,7 +11,7 @@ const sideBarLinksList = [
 ];
 
 class Sidebar extends Component {
-  state = { activeTabId: null };
+  state = { activeTabId: null, isModeDark: false };
 
   componentDidMount() {
     const currentPathname = window.location.pathname;
@@ -29,6 +29,12 @@ class Sidebar extends Component {
     resizeMenuBar();
   };
 
+  changePageTheme = () => {
+    const page = document.querySelector(".App");
+    page.classList.toggle("dark-mode");
+    this.setState((prevState) => ({ isModeDark: !prevState.isModeDark }));
+  };
+
   onClickLink = (activeId) => {
     this.setState({ activeTabId: activeId });
   };
@@ -39,32 +45,47 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { activeTabId } = this.state;
+    const { activeTabId, isModeDark } = this.state;
 
     return (
       <>
         <div className="d-md-none d-none" id="sideBarBackBlur"></div>
-        <div className="sidebar" id="sidebar">
-          <div
-            className="back-btn-container d-md-none"
-            onClick={this.onClickBackBtn}
-          >
-            <i className="fa-solid fa-angle-left back-icon"></i>
-            <h1 className="back-text">Back</h1>
-          </div>
-          {sideBarLinksList.map((each) => (
-            <Link
-              key={each.id}
-              className={`sidebar-link-item ${
-                each.id === activeTabId ? "activeTab" : null
-              }`}
-              to={each.to}
-              onClick={() => this.onClickLink(each.id)}
+        <div className="sidebar shadow-md-2" id="sidebar">
+          <div>
+            <div
+              className="back-btn-container d-md-none"
+              onClick={this.onClickBackBtn}
             >
-              <i className={`${each.icon} sidebar-link-icon`}></i>
-              <p className="sidebar-link-name">{each.text}</p>
-            </Link>
-          ))}
+              <i className="fa-solid fa-angle-left back-icon"></i>
+              <h1 className="back-text">Back</h1>
+            </div>
+            {sideBarLinksList.map((each) => (
+              <Link
+                key={each.id}
+                className={`sidebar-link-item ${
+                  each.id === activeTabId ? "activeTab" : null
+                }`}
+                to={each.to}
+                onClick={() => this.onClickLink(each.id)}
+              >
+                <i className={`${each.icon} sidebar-link-icon`}></i>
+                <p className="sidebar-link-name">{each.text}</p>
+              </Link>
+            ))}
+          </div>
+          <div
+            className="dark-mode-container sidebar-link-item"
+            onClick={this.changePageTheme}
+          >
+            <i
+              className={`fa-solid ${
+                isModeDark ? "fa-sun" : "fa-moon"
+              } sidebar-link-icon`}
+            ></i>
+            <p className=" sidebar-link-name">
+              {isModeDark ? "Light Mode" : "Dark Mode"}
+            </p>
+          </div>
         </div>
       </>
     );

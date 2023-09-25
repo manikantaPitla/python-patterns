@@ -5,6 +5,8 @@
   padding: 8px 24px;
   color: var(--text-dark);
   border-bottom: 1px solid var(--light-dark);
+  background-color: var(--bg-white);
+  transition: background-color 0.4s;
 }
 
 .nav-left {
@@ -62,6 +64,7 @@
   padding-right: 40px;
   background-color: transparent;
   font-size: 14px;
+  color: var(--text-dark);
 }
 
 .search-icon-container {

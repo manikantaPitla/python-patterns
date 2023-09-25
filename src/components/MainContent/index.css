@@ -2,5 +2,6 @@
   flex-grow: 2;
   padding: 20px;
   background-color: var(--bg-white);
+  transition: background-color 0.4s;
   overflow-y: auto;
 }

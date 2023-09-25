@@ -18,7 +18,11 @@
   justify-content: space-between;
 }
 
-.filter-select-container {
+.filter-select-container,
+.filter-select-container:focus {
+  background-color: var(--bg-white);
+  transition: background-color 0.4s;
+  color: var(--text-dark);
   font-size: 12px !important;
   font-weight: 500 !important;
 }

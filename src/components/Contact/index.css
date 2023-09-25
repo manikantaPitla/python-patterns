@@ -9,18 +9,19 @@
   margin-right: 12px;
   cursor: pointer;
   transition: 0.4s;
+  color: var(--text-dark);
 }
 
 .s-link-bg:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+  background-color: var(--bg-dark);
+  box-shadow: 0px 0px 10px var(--bg-dark);
 }
 
 .s-link-bg:hover .s-link-icon {
-  color: #ffffff;
+  color: var(--text-white);
 }
 
 .s-link-icon {
   font-size: 16 px;
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--text-dark);
 }

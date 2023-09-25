@@ -3,6 +3,11 @@
   width: 250px;
   border-right: 1px solid var(--light-dark);
   transition: 0.4s;
+  background-color: var(--bg-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
 }
 
 .resize-sidebar-lg {
@@ -40,6 +45,15 @@
   background-color: var(--light-dark);
 }
 
+.dark-mode-container {
+  width: 100%;
+  cursor: pointer;
+}
+
+.dark-mode-container:hover {
+  background-color: var(--light-dark);
+}
+
 .open-filter-menu {
   padding: 10px 35px;
   height: 150px;
@@ -56,7 +70,7 @@
     height: 100vh;
     z-index: 6;
     backdrop-filter: blur(4px);
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--light-dark);
   }
 
   .sidebar,
@@ -68,7 +82,7 @@
     top: 0;
     left: 0;
     height: 100vh;
-    background-color: #ffffff;
+    background-color: var(--bg-white);
     z-index: 10;
     box-shadow: 0px 0px 3px #252525;
   }

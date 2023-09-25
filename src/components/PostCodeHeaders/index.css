@@ -1,0 +1,12 @@
+.pc-header-btn {
+  border: none;
+  outline: none;
+  margin: 0px 8px;
+  padding: 0px 4px;
+  color: var(--dark);
+  background-color: transparent;
+}
+
+.active-tab {
+  border-bottom: 1px solid var(--text-dark);
+}

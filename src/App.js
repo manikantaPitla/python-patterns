@@ -9,13 +9,6 @@ class App extends Component {
 
   componentDidMount() {
     window.addEventListener("keydown", this.toggleCodePost);
-
-    // if (window.innerWidth < 768) {
-    //   sidebar.classList.add("resize-sidebar");
-    //   sideBarBackBlur.classList.remove("sidebar-bg-blur");
-    // } else {
-    //     sidebar.classList.remove("resize-sidebar");
-    // }
   }
 
   componentWillUnmount() {
@@ -41,11 +34,6 @@ class App extends Component {
     sidebarIcons.forEach((each) => {
       each.classList.toggle("icon-margin");
     });
-
-    // if (window.innerWidth < 768) {
-    //   const sideBarBackBlur = document.getElementById("sideBarBackBlur");
-    //   sideBarBackBlur.classList.toggle("sidebar-bg-blur");
-    // }
   };
 
   resizeMenuBar = () => {
