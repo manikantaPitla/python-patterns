@@ -8,5 +8,5 @@
 }
 
 .active-tab {
-  border-bottom: 1px solid var(--text-dark);
+  border-bottom: 2px solid var(--text-dark);
 }

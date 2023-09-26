@@ -1,7 +1,7 @@
 import { Component } from "react";
 import Navigation from "./components/Navigation";
 import ContentBody from "./components/ContentBody";
-import PostCode from "./components/PostCode";
+import ManupulateDataCard from "./components/ManupulateDataCard";
 import "./App.css";
 
 class App extends Component {
@@ -49,7 +49,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        {isPostCodeOpen && <PostCode />}
+        {isPostCodeOpen && <ManupulateDataCard />}
         <Navigation
           resizeSideBar={this.resizeSideBar}
           resizeMenuBar={this.resizeMenuBar}

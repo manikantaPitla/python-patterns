@@ -1,7 +1,6 @@
 import { Component } from "react";
 import { v4 } from "uuid";
 import CodeMirrorEditor from "../CodeMirrorEditor";
-import PostCodeHeaders from "../PostCodeHeaders";
 import "./index.css";
 
 const CodePlaceholder = `M = int(input())
@@ -70,24 +69,8 @@ const codeTypeList = [
   },
 ];
 
-const postCodeHeadersList = [
-  {
-    id: v4(),
-    headerName: "Post",
-  },
-  {
-    id: v4(),
-    headerName: "Update",
-  },
-  {
-    id: v4(),
-    headerName: "Delete",
-  },
-];
-
 class PostCode extends Component {
   state = {
-    activeTabId: postCodeHeadersList[0].id,
     id: v4(),
     codeType: "",
     codeDescription: "",
@@ -96,10 +79,6 @@ class PostCode extends Component {
     codeOutput: "",
     code: "",
     responseMsg: "",
-  };
-
-  onClickChangeTabId = (currentTabId) => {
-    this.setState({ activeTabId: currentTabId });
   };
 
   onChangeCodeType = (e) => {
@@ -147,7 +126,7 @@ class PostCode extends Component {
       !codeOutput ||
       !code
     ) {
-      alert("All fields are required");
+      this.setState({ responseMsg: "All fields required!" });
       return;
     }
 
@@ -168,30 +147,31 @@ class PostCode extends Component {
       body: JSON.stringify(postData),
     };
 
-    // const reqUrl = "https://bright-teal-polo-shirt.cyclic.cloud/postcode";
     const reqUrl = "https://python-patterns-server.onrender.com/postcode";
+    // const reqUrl = "http://localhost:4000/postcode/";
 
     try {
       const response = await fetch(reqUrl, postMethod);
-      if (!response.ok) {
-        alert(response.status);
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
 
-      this.setState({
-        id: v4(),
-        codeType: "",
-        codeDescription: "",
-        codeHint: "",
-        codeInput: "",
-        codeOutput: "",
-        code: "",
-        responseMsg: data.message,
-      });
+        this.setState({
+          id: v4(),
+          codeType: "",
+          codeDescription: "",
+          codeHint: "",
+          codeInput: "",
+          codeOutput: "",
+          code: "",
+          responseMsg: data.message,
+        });
+      } else {
+        this.setState({
+          responseMsg: "Something went wrong. Please try again!",
+        });
+      }
     } catch (error) {
       alert(error);
-      console.error("Fetch error:", error);
     }
   };
 
@@ -203,135 +183,127 @@ class PostCode extends Component {
       codeOutput,
       code,
       responseMsg,
-      activeTabId,
     } = this.state;
 
     return (
-      <div className="admin-container">
-        <div className="admin-card">
-          <div>
-            {postCodeHeadersList.map((each) => (
-              <PostCodeHeaders
-                key={each.id}
-                postCodeHeadersData={each}
-                isActive={each.id === activeTabId}
-                onClickChangeTabId={this.onClickChangeTabId}
+      <div className="post-code-container">
+        <div className="pc-form-container">
+          <form className="row m-0" onSubmit={this.onSubmitPostCode}>
+            <div className="col-12">
+              <h1 className="heading">Insert Your Code</h1>
+            </div>
+            <div className="col-12 col-md-6 p-2 px-3">
+              <label className="pc-input-label" htmlFor="codeType">
+                Code type
+              </label>
+              <select
+                className="form-control mb-2 pc-form-input"
+                id="codeType"
+                onChange={this.onChangeCodeType}
+              >
+                {codeTypeList.map((each) => (
+                  <option key={each.id} value={each.codeValue}>
+                    {each.codeValue}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-12 col-md-6 p-2 px-3">
+              <label className="pc-input-label" htmlFor="codeDescription">
+                Code description
+              </label>
+              <input
+                className="pc-form-input form-control mb-2"
+                type="text"
+                placeholder="Description"
+                id="codeDescription"
+                onChange={this.onChangeCodeDescription}
+                value={codeDescription}
               />
-            ))}
-            <hr />
+            </div>
+            <div className="col-12 col-md-6 p-2 px-3">
+              <label className="pc-input-label" htmlFor="codeHint">
+                Code hint
+              </label>
+              <textarea
+                rows={4}
+                className="pc-form-input form-control mb-2"
+                placeholder="Code Hint"
+                id="codeHint"
+                onChange={this.onChangeCodeHint}
+                value={codeHint}
+              ></textarea>
+            </div>
+            <div className="col-12 col-md-6 p-2 px-3">
+              <label className="pc-input-label">Code input</label>
+              <textarea
+                rows={4}
+                className="form-control mb-2 pc-form-input"
+                placeholder="Enter input"
+                onChange={this.onChangeCodeInput}
+                value={codeInput}
+              ></textarea>
+            </div>
+            <div className="col-12 col-md-6 p-2 px-3">
+              <label className="pc-input-label">Code</label>
+              <textarea
+                rows={6}
+                className="form-control mb-2 pc-form-input"
+                placeholder="Enter code"
+                onChange={this.onChangeCode}
+                value={code}
+              ></textarea>
+            </div>
+            <div className="col-12 col-md-6 p-2 px-3">
+              <label className="pc-input-label">Code output</label>
+              <textarea
+                rows={6}
+                className="form-control mb-2 pc-form-input"
+                placeholder="Enter code output"
+                onChange={this.onChangeCodeOutput}
+                value={codeOutput}
+              ></textarea>
+            </div>
+            <div className="col-12 p-2 px-3 d-flex justify-content-end align-items-center">
+              <p
+                className={`para mx-3 ${
+                  responseMsg === "All fields required!"
+                    ? "text-danger"
+                    : "text-success"
+                }`}
+              >
+                {responseMsg}
+              </p>
+              <button
+                type="submit"
+                className="btn submit-btn mt-2 mb-4 shadow-1"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+        <hr />
+        <div className="row m-0 pc-preview-container">
+          <div className="col-12">
+            <h1 className="heading">Code Preview</h1>
           </div>
-          <div className="post-code-container">
-            <div className="pc-form-container">
-              <form className="row m-0" onSubmit={this.onSubmitPostCode}>
-                <div className="col-12">
-                  <h1 className="heading">Insert Your Code</h1>
-                </div>
-                <div className="col-12 col-md-6 p-2 px-3">
-                  <label className="pc-input-label" htmlFor="codeType">
-                    Code type
-                  </label>
-                  <select
-                    className="form-control mb-2 pc-form-input"
-                    id="codeType"
-                    onChange={this.onChangeCodeType}
-                  >
-                    {codeTypeList.map((each) => (
-                      <option key={each.id} value={each.codeValue}>
-                        {each.codeValue}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-12 col-md-6 p-2 px-3">
-                  <label className="pc-input-label" htmlFor="codeDescription">
-                    Code description
-                  </label>
-                  <input
-                    className="pc-form-input form-control mb-2"
-                    type="text"
-                    placeholder="Description"
-                    id="codeDescription"
-                    onChange={this.onChangeCodeDescription}
-                    value={codeDescription}
-                  />
-                </div>
-                <div className="col-12 col-md-6 p-2 px-3">
-                  <label className="pc-input-label" htmlFor="codeHint">
-                    Code hint
-                  </label>
-                  <textarea
-                    rows={4}
-                    className="pc-form-input form-control mb-2"
-                    placeholder="Code Hint"
-                    id="codeHint"
-                    onChange={this.onChangeCodeHint}
-                    value={codeHint}
-                  ></textarea>
-                </div>
-                <div className="col-12 col-md-6 p-2 px-3">
-                  <label className="pc-input-label">Code input</label>
-                  <textarea
-                    rows={4}
-                    className="form-control mb-2 pc-form-input"
-                    placeholder="Enter input"
-                    onChange={this.onChangeCodeInput}
-                    value={codeInput}
-                  ></textarea>
-                </div>
-                <div className="col-12 col-md-6 p-2 px-3">
-                  <label className="pc-input-label">Code</label>
-                  <textarea
-                    rows={6}
-                    className="form-control mb-2 pc-form-input"
-                    placeholder="Enter code"
-                    onChange={this.onChangeCode}
-                    value={code}
-                  ></textarea>
-                </div>
-                <div className="col-12 col-md-6 p-2 px-3">
-                  <label className="pc-input-label">Code output</label>
-                  <textarea
-                    rows={6}
-                    className="form-control mb-2 pc-form-input"
-                    placeholder="Enter code output"
-                    onChange={this.onChangeCodeOutput}
-                    value={codeOutput}
-                  ></textarea>
-                </div>
-                <div className="col-12 p-2 px-3 d-flex justify-content-end align-items-center">
-                  <p className="para text-success mx-3">{responseMsg}</p>
-                  <button
-                    type="submit"
-                    className="btn submit-btn mt-2 mb-4 shadow-1"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </div>
-            <hr />
-            <div className="row m-0 pc-preview-container">
-              <div className="col-12">
-                <h1 className="heading">Code Preview</h1>
-              </div>
-              <div className="col-12 col-md-6 p-2 px-3">
-                <p className="pc-input-label">Code</p>
-                <CodeMirrorEditor
-                  placeholder={CodePlaceholder}
-                  className="pc-code-output-ground"
-                  code={code}
-                />
-              </div>
+          <div className="col-12 col-md-6 p-2 px-3">
+            <p className="pc-input-label">Code</p>
+            <CodeMirrorEditor
+              placeholder={CodePlaceholder}
+              className="pc-code-output-ground"
+              code={code}
+            />
+          </div>
 
-              <div className="col-12 col-md-6 p-2 px-3">
-                <p className="pc-input-label">Code output</p>
-                <CodeMirrorEditor
-                  className="pc-code-output-ground"
-                  code={codeOutput}
-                  placeholder={outputPlaceholder}
-                />
-              </div>
-            </div>
+          <div className="col-12 col-md-6 p-2 px-3">
+            <p className="pc-input-label">Code output</p>
+            <CodeMirrorEditor
+              className="pc-code-output-ground"
+              code={codeOutput}
+              placeholder={outputPlaceholder}
+            />
           </div>
         </div>
       </div>

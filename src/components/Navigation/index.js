@@ -5,15 +5,6 @@ import "./index.css";
 class Navigation extends Component {
   state = { isPathPatterns: false };
 
-  componentDidUpdate() {
-    const { match } = this.props;
-    const { path } = match;
-    console.log(path);
-    if (path === "/patterns") {
-      console.log(true);
-    }
-  }
-
   resizeSearchBar = () => {
     const searchContainer = document.getElementById("searchContainer");
     const pageName = document.getElementById("pageName");
