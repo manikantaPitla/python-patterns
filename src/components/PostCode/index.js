@@ -72,7 +72,7 @@ const codeTypeList = [
 class PostCode extends Component {
   state = {
     id: v4(),
-    codeType: "",
+    codeType: codeTypeList[0].codeValue,
     codeDescription: "",
     codeHint: "",
     codeInput: "",
@@ -118,14 +118,7 @@ class PostCode extends Component {
       code,
     } = this.state;
 
-    if (
-      !codeType ||
-      !codeDescription ||
-      !codeHint ||
-      !codeInput ||
-      !codeOutput ||
-      !code
-    ) {
+    if (!codeDescription || !codeHint || !codeInput || !codeOutput || !code) {
       this.setState({ responseMsg: "All fields required!" });
       return;
     }
@@ -182,6 +175,7 @@ class PostCode extends Component {
       codeInput,
       codeOutput,
       code,
+      codeType,
       responseMsg,
     } = this.state;
 
@@ -200,6 +194,7 @@ class PostCode extends Component {
                 className="form-control mb-2 pc-form-input"
                 id="codeType"
                 onChange={this.onChangeCodeType}
+                value={codeType}
               >
                 {codeTypeList.map((each) => (
                   <option key={each.id} value={each.codeValue}>
