@@ -60,7 +60,7 @@ class Sidebar extends Component {
     this.setState({ isModeDark: JSON.parse(pageTheme) });
   };
 
-  setInLocalStorage = (mode) => {
+  setInLocalStorage = (x) => {
     const { isModeDark } = this.state;
     localStorage.setItem("isModeDark", JSON.stringify(isModeDark));
   };
@@ -106,7 +106,6 @@ class Sidebar extends Component {
               </Link>
             ))}
           </div>
-
           <div
             className="dark-mode-container sidebar-link-item"
             onClick={this.changePageTheme}
