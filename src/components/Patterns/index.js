@@ -1,7 +1,7 @@
 import { Component } from "react";
-import { MDBSpinner } from "mdb-react-ui-kit";
 import PatternItem from "../PatternItem";
 import NotFound from "../NotFound";
+import Loader from "../Loader";
 import noDataImage from "./noData.png";
 import { v4 } from "uuid";
 import "./index.css";
@@ -91,9 +91,7 @@ class Patterns extends Component {
 
   renderSpinner = () => (
     <div className="loading-spinner-container">
-      <MDBSpinner role="status">
-        <span className="visually-hidden">Loading...</span>
-      </MDBSpinner>
+      <Loader w="40" />
     </div>
   );
 
@@ -109,13 +107,10 @@ class Patterns extends Component {
           id="filterContainer"
           onClick={this.ToggleFilterMenu}
         >
-          <div>
-            <h1 className="heading mb-0">Filter Python Patterns</h1>
-          </div>
           <div className="d-flex align-items-center">
-            <i className="fa-solid fa-sliders mx-3"></i>
+            <i className="fa-solid fa-sliders mx-2"></i>
             <select
-              className="form-control shadow-0 para-poppins filter-select-container"
+              className="form-control shadow-0 para filter-select-container"
               onChange={this.filterPatternsListType}
               value={filteredListType}
             >

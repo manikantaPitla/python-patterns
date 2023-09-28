@@ -4,9 +4,9 @@
   border-right: 1px solid var(--light-dark);
   transition: 0.4s;
   background-color: var(--bg-white);
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between; */
   overflow: hidden;
 }
 

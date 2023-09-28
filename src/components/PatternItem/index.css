@@ -1,6 +1,6 @@
 .q-text {
   font-family: var(--nato);
-  font-size: 14px;
+  font-size: var(--fsize-14);
   font-weight: 500;
 }
 

@@ -5,12 +5,12 @@
 .pc-input-label {
   font-family: var(--nato);
   font-weight: 500;
-  font-size: 14px;
   margin-bottom: 5px;
+  font-size: var(--fsize-14);
 }
 
 .pc-form-input {
-  font-size: 14px;
+  font-size: var(--fsize-14);
   font-weight: 400;
   background-color: var(--light-white);
   color: var(--text-dark);

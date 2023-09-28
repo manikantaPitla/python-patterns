@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { v4 } from "uuid";
 import CodeMirrorEditor from "../CodeMirrorEditor";
+import Loader from "../Loader";
+
 import "./index.css";
 
 const CodePlaceholder = `M = int(input())
@@ -79,6 +81,7 @@ class PostCode extends Component {
     codeOutput: "",
     code: "",
     responseMsg: "",
+    isLoading: false,
   };
 
   onChangeCodeType = (e) => {
@@ -123,6 +126,8 @@ class PostCode extends Component {
       return;
     }
 
+    this.setState({ isLoading: true, responseMsg: "" });
+
     const postData = {
       id: id,
       code_type: codeType,
@@ -157,16 +162,23 @@ class PostCode extends Component {
           codeOutput: "",
           code: "",
           responseMsg: data.message,
+          isLoading: false,
         });
       } else {
         this.setState({
+          isLoading: false,
           responseMsg: "Something went wrong. Please try again!",
         });
       }
     } catch (error) {
-      alert(error);
+      this.setState({
+        isLoading: false,
+        responseMsg: "Something went wrong. Please try again!",
+      });
     }
   };
+
+  renderLoader = () => <Loader w="30" />;
 
   render() {
     const {
@@ -177,6 +189,7 @@ class PostCode extends Component {
       code,
       codeType,
       responseMsg,
+      isLoading,
     } = this.state;
 
     return (
@@ -269,6 +282,9 @@ class PostCode extends Component {
               >
                 {responseMsg}
               </p>
+              {isLoading && (
+                <div className="mx-3 mb-3">{this.renderLoader()}</div>
+              )}
               <button
                 type="submit"
                 className="btn submit-btn mt-2 mb-4 shadow-1"

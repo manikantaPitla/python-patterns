@@ -1,12 +1,14 @@
 import { Component } from "react";
-import "./index.css";
+import Loader from "../Loader";
 
 class DeleteCode extends Component {
-  state = { responseMsg: "", codeId: "" };
+  state = { responseMsg: "", codeId: "", isLoading: false };
 
   onChangeCodeId = (e) => {
     this.setState({ codeId: e.target.value });
   };
+
+  renderLoader = () => <Loader w="30" />;
 
   onDeleteRequest = async (e) => {
     e.preventDefault();
@@ -16,6 +18,8 @@ class DeleteCode extends Component {
       this.setState({ responseMsg: "Unique Id cannot be empty!" });
       return;
     }
+
+    this.setState({ isLoading: true, responseMsg: "" });
 
     const deleteData = {
       codeId,
@@ -36,21 +40,27 @@ class DeleteCode extends Component {
       const response = await fetch(deleteUrl, options);
       const data = await response.json();
       if (response.ok) {
-        this.setState({ responseMsg: data.message, codeId: "" });
+        this.setState({
+          responseMsg: data.message,
+          codeId: "",
+          isLoading: false,
+        });
       } else {
         this.setState({
+          isLoading: false,
           responseMsg: data.error,
         });
       }
     } catch (error) {
       this.setState({
+        isLoading: false,
         responseMsg: "Something went wrong. Please try again!",
       });
     }
   };
 
   render() {
-    const { responseMsg, codeId } = this.state;
+    const { responseMsg, codeId, isLoading } = this.state;
 
     return (
       <div className="update-data-container">
@@ -77,6 +87,9 @@ class DeleteCode extends Component {
                 >
                   Delete
                 </button>
+                {isLoading && (
+                  <div className="mx-3 mb-3">{this.renderLoader()}</div>
+                )}
                 <p
                   className={`para mx-3 ${
                     responseMsg === "Deleted Successfully"

@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { v4 } from "uuid";
-import "./index.css";
+import Loader from "../Loader";
 
 const updateOptionList = [
   {
@@ -40,11 +40,14 @@ class UpdateCode extends Component {
     updateValue: "",
     codeId: "",
     updateOption: updateOptionList[0].value,
+    isLoading: false,
   };
 
   changeUpdateOption = (event) => {
     this.setState({ updateOption: event.target.value });
   };
+
+  renderLoader = () => <Loader w="30" />;
 
   onChangeCodeId = (event) => {
     this.setState({ codeId: event.target.value });
@@ -62,6 +65,7 @@ class UpdateCode extends Component {
       this.setState({ responseMsg: "All fields required!" });
       return;
     }
+    this.setState({ isLoading: true, responseMsg: "" });
 
     const updateData = {
       codeOption: updateOption,
@@ -83,21 +87,24 @@ class UpdateCode extends Component {
       const response = await fetch(Updateurl, options);
       const data = await response.json();
       if (response.ok) {
-        this.setState({ responseMsg: data.message });
+        this.setState({ responseMsg: data.message, isLoading: false });
       } else {
         this.setState({
           responseMsg: data.error,
+          isLoading: false,
         });
       }
     } catch (error) {
       this.setState({
+        isLoading: false,
         responseMsg: "Something went wrong. Please try again!",
       });
     }
   };
 
   render() {
-    const { updateValue, codeId, updateOption, responseMsg } = this.state;
+    const { updateValue, codeId, updateOption, responseMsg, isLoading } =
+      this.state;
 
     return (
       <div className="update-data-container">
@@ -144,10 +151,13 @@ class UpdateCode extends Component {
               value={updateValue}
             ></textarea>
           </div>
-          <div className="col-12 p-2 px-3 d-flex justify-content-start align-items-center">
+          <div className="col-12 p-2 px-3 d-flex align-items-center">
             <button type="submit" className="btn submit-btn mt-2 mb-4 shadow-1">
               Update
             </button>
+            {isLoading && (
+              <div className="mx-3 mb-3">{this.renderLoader()}</div>
+            )}
             <p
               className={`para mx-3 ${
                 responseMsg === "Updated Successfully"

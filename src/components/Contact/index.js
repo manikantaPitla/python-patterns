@@ -47,7 +47,7 @@ const Contact = () => {
             development, I am dedicated to pushing the boundaries of what is
             possible in the digital world.
           </p>
-          <a
+          {/* <a
             href="https://manikantapitla.github.io/personal-portfolio/"
             target="__blank"
           >
@@ -59,7 +59,7 @@ const Contact = () => {
                 </span>
               </strong>
             </p>
-          </a>
+          </a> */}
         </div>
       </div>
     </div>

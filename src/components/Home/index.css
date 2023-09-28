@@ -10,7 +10,7 @@
 .explore-btn:hover {
   width: 110px;
   height: 36;
-  font-size: 13px;
+  font-size: var(--fsize-12);
   border: none;
   letter-spacing: 1px;
   border-radius: 4px;
@@ -33,9 +33,9 @@
   text-align: center;
   margin: 5px;
   padding: 4px 15px;
-  font-size: 14px;
   font-weight: 400;
   font-family: var(--nato);
+  font-size: var(--fsize-14);
 }
 
 @media (max-width: 768px) {

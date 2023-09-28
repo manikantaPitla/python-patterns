@@ -11,9 +11,19 @@ const sideBarLinksList = [
 ];
 
 class Sidebar extends Component {
-  state = { activeTabId: null, isModeDark: false };
+  state = { activeTabId: null, isModeDark: true };
 
   componentDidMount() {
+    this.getLocalStorage();
+    this.checkActiveTab();
+    this.intervalID = setInterval(this.checkActiveTab, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
+  checkActiveTab = () => {
     const currentPathname = window.location.pathname;
     const activeLink = sideBarLinksList.find(
       (link) => link.to === currentPathname
@@ -22,7 +32,7 @@ class Sidebar extends Component {
     if (activeLink) {
       this.setState({ activeTabId: activeLink.id });
     }
-  }
+  };
 
   onClickBackBtn = () => {
     const { resizeMenuBar } = this.props;
@@ -30,9 +40,29 @@ class Sidebar extends Component {
   };
 
   changePageTheme = () => {
+    this.setState(
+      (prevState) => ({ isModeDark: !prevState.isModeDark }),
+      () => {
+        this.setInLocalStorage();
+        this.getLocalStorage();
+      }
+    );
+  };
+
+  getLocalStorage = () => {
+    const pageTheme = localStorage.getItem("isModeDark");
     const page = document.querySelector(".App");
-    page.classList.toggle("dark-mode");
-    this.setState((prevState) => ({ isModeDark: !prevState.isModeDark }));
+    if (JSON.parse(pageTheme)) {
+      page.classList.add("dark-mode");
+    } else {
+      page.classList.remove("dark-mode");
+    }
+    this.setState({ isModeDark: JSON.parse(pageTheme) });
+  };
+
+  setInLocalStorage = (mode) => {
+    const { isModeDark } = this.state;
+    localStorage.setItem("isModeDark", JSON.stringify(isModeDark));
   };
 
   onClickLink = (activeId) => {
@@ -46,10 +76,13 @@ class Sidebar extends Component {
 
   render() {
     const { activeTabId, isModeDark } = this.state;
-
     return (
       <>
-        <div className="d-md-none d-none" id="sideBarBackBlur"></div>
+        <div
+          className="d-md-none d-none"
+          id="sideBarBackBlur"
+          onClick={this.onClickBackBtn}
+        ></div>
         <div className="sidebar shadow-md-2" id="sidebar">
           <div>
             <div
@@ -73,6 +106,7 @@ class Sidebar extends Component {
               </Link>
             ))}
           </div>
+
           <div
             className="dark-mode-container sidebar-link-item"
             onClick={this.changePageTheme}
