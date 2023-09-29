@@ -7,3 +7,21 @@
 .code-and-output {
   height: 230px;
 }
+
+.code-ground-title-container {
+  background-color: var(--code-g-bg);
+  color: var(--text-dark);
+  border-radius: 20px;
+  height: 26px;
+  width: 60px;
+  position: absolute;
+  right: 20px;
+  top: 0;
+  transform: translateY(-6px);
+  z-index: 1;
+  transition: background-color 0.4s;
+}
+
+.code-g-text {
+  font-size: var(--fsize-12) !important;
+}

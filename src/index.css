@@ -15,6 +15,7 @@
   --text-white: #ffffff;
   --text-dark: #000000;
   --text-light-dark: #212529;
+  --code-g-bg: #e5e5e5;
 
   --mont: "Montserrat", sans-serif;
   --poppins: "Poppins", sans-serif;
@@ -40,6 +41,7 @@
   --text-dark: #ffffff;
   --text-white: #000000;
   --text-light-dark: #212529;
+  --code-g-bg: #495057;
 
   --light-dark: rgba(255, 255, 255, 0.1);
   --color-greyish: rgba(255, 255, 255, 0.4);
