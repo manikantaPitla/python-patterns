@@ -105,19 +105,19 @@ class Sidebar extends Component {
                 <p className="sidebar-link-name">{each.text}</p>
               </Link>
             ))}
-          </div>
-          <div
-            className="dark-mode-container sidebar-link-item"
-            onClick={this.changePageTheme}
-          >
-            <i
-              className={`fa-solid ${
-                isModeDark ? "fa-sun" : "fa-moon"
-              } sidebar-link-icon`}
-            ></i>
-            <p className=" sidebar-link-name">
-              {isModeDark ? "Light Mode" : "Dark Mode"}
-            </p>
+            <div
+              className="dark-mode-container sidebar-link-item"
+              onClick={this.changePageTheme}
+            >
+              <i className="sidebar-link-icon">
+                <i
+                  className={` fa-solid ${isModeDark ? "fa-sun" : "fa-moon"} `}
+                ></i>
+              </i>
+              <p className=" sidebar-link-name">
+                {isModeDark ? "Light Mode" : "Dark Mode"}
+              </p>
+            </div>
           </div>
         </div>
       </>
