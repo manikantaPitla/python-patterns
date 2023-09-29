@@ -1,7 +1,7 @@
 import "./index.css";
-import notFoundImage from "./not-found.png";
+import notFoundImg from "../../images/not-found.png";
 
-const NotFound = ({ image = notFoundImage }) => {
+const NotFound = ({ image = notFoundImg }) => {
   return (
     <div className="not-found-container">
       <img className="not-found-image" src={image} alt="not-found" />

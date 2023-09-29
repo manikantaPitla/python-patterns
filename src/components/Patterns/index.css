@@ -27,6 +27,36 @@
   font-weight: 500 !important;
 }
 
+.retry-btn,
+.retry-btn:hover {
+  width: 70px;
+  height: 36;
+  font-size: var(--fsize-12);
+  border: none;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+}
+
 .pattern-data-container {
   flex-grow: 2;
+}
+
+.server-error-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.server-error-image {
+  width: 250px;
+}
+
+@media (max-width: 768px) {
+  .server-error-image {
+    width: 180px;
+  }
 }

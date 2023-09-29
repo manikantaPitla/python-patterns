@@ -2,7 +2,8 @@ import { Component } from "react";
 import PatternItem from "../PatternItem";
 import NotFound from "../NotFound";
 import Loader from "../Loader";
-import noDataImage from "./noData.png";
+import noDataImg from "../../images/noData.png";
+import serverErrImg from "../../images/server-error.png";
 import { v4 } from "uuid";
 import "./index.css";
 
@@ -15,10 +16,17 @@ const filterSelectList = [
   { id: v4(), value: "Pyramid" },
 ];
 
+const apiStatus = {
+  initial: "INITIAL",
+  success: "SUCCESS",
+  pending: "PENDING",
+  failure: "FAILURE",
+};
+
 class Patterns extends Component {
   state = {
     patternsDataList: [],
-    isLoading: true,
+    CurrentApiStatus: apiStatus.initial,
     filteredListType: filterSelectList[0].value,
   };
 
@@ -27,30 +35,42 @@ class Patterns extends Component {
   }
 
   getAllPatterns = async () => {
+    this.setState({
+      CurrentApiStatus: apiStatus.initial,
+    });
     try {
       //   const requestUrl = "https://expensive-pear-squirrel.cyclic.cloud/";
       const requestUrl = "https://python-patterns-server.onrender.com/";
 
       const response = await fetch(requestUrl);
-      const data = await response.json();
-      const patternList = data.data;
+      if (response.ok) {
+        const data = await response.json();
+        const patternList = data.data;
 
-      const updatedList = patternList.map((each) => ({
-        id: each.id,
-        codeType: each.code_type,
-        codeDescription: each.code_description,
-        codeHint: each.code_hint,
-        codeInput: each.code_input,
-        codeOutput: each.code_output,
-        code: each.code,
-      }));
+        const updatedList = patternList.map((each) => ({
+          id: each.id,
+          codeType: each.code_type,
+          codeDescription: each.code_description,
+          codeHint: each.code_hint,
+          codeInput: each.code_input,
+          codeOutput: each.code_output,
+          code: each.code,
+        }));
 
+        this.setState({
+          patternsDataList: updatedList,
+          CurrentApiStatus: apiStatus.success,
+        });
+      } else {
+        this.setState({
+          CurrentApiStatus: apiStatus.failure,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching patterns:", error);
       this.setState({
-        patternsDataList: updatedList,
-        isLoading: false,
+        CurrentApiStatus: apiStatus.failure,
       });
-    } catch (Err) {
-      console.log(Err.message);
     }
   };
 
@@ -95,10 +115,52 @@ class Patterns extends Component {
     </div>
   );
 
-  render() {
-    const { isLoading, filteredListType } = this.state;
+  renderFailure = () => (
+    <div className="server-error-container">
+      <img
+        className="server-error-image"
+        src={serverErrImg}
+        alt="server error"
+      />
+      <p className="para mt-2">Something went wrong, Try again!</p>
 
+      <button className="btn btn-sm retry-btn" onClick={this.getAllPatterns}>
+        Retry
+      </button>
+    </div>
+  );
+
+  renderSuccess = () => {
     const filteredPatternsList = this.filterSearchInput();
+
+    return (
+      <div className="pb-3 pattern-data-container">
+        {filteredPatternsList.length === 0 ? (
+          <NotFound image={noDataImg} />
+        ) : (
+          filteredPatternsList.map((each) => (
+            <PatternItem key={each.id} patternsList={each} />
+          ))
+        )}
+      </div>
+    );
+  };
+
+  renderBody = () => {
+    const { CurrentApiStatus } = this.state;
+
+    switch (CurrentApiStatus) {
+      case apiStatus.success:
+        return this.renderSuccess();
+      case apiStatus.failure:
+        return this.renderFailure();
+      default:
+        return this.renderSpinner();
+    }
+  };
+
+  render() {
+    const { filteredListType } = this.state;
 
     return (
       <div className="patterns-container">
@@ -123,17 +185,7 @@ class Patterns extends Component {
           </div>
         </div>
         <hr />
-        <div className="pb-3 pattern-data-container">
-          {isLoading ? (
-            this.renderSpinner()
-          ) : filteredPatternsList.length === 0 ? (
-            <NotFound image={noDataImage} />
-          ) : (
-            filteredPatternsList.map((each) => (
-              <PatternItem key={each.id} patternsList={each} />
-            ))
-          )}
-        </div>
+        {this.renderBody()}
       </div>
     );
   }
