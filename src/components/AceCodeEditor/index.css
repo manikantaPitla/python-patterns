@@ -14,13 +14,13 @@
   user-select: text !important;
 }
 
-/* .ace_gutter-cell {
+.ace_gutter-cell {
   padding: 0px 13px 0px 13px !important;
-} */
+}
 
-/* .ace_gutter-active-line {
+.ace_gutter-active-line {
   background-color: transparent !important;
-} */
+}
 
 .ace_scrollbar-h .ace_scrollbar-h {
   height: 20px !important;
