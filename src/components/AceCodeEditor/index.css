@@ -6,6 +6,10 @@
   user-select: none;
 }
 
+.ace-editor-container {
+  font-size: var(--fsize-14) !important;
+}
+
 .ace_editor {
   width: 100% !important;
   line-height: 24px !important;

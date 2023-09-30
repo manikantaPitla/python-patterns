@@ -12,11 +12,10 @@ const AceCodeEditor = (props) => {
   return (
     <div className="code-editor-container">
       <AceEditor
+        className="ace-editor-container"
         placeholder={placeholder}
         mode="python"
         theme="dracula"
-        name="blah2"
-        fontSize={14}
         showPrintMargin={true}
         showGutter={true}
         highlightActiveLine={false}
