@@ -26,3 +26,7 @@
   background-color: var(--bg-dark);
   color: var(--text-white);
 }
+
+.pc-code-g-container {
+  height: 150px;
+}

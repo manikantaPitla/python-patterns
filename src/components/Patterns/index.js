@@ -39,8 +39,8 @@ class Patterns extends Component {
       CurrentApiStatus: apiStatus.initial,
     });
     try {
-      //   const requestUrl = "https://expensive-pear-squirrel.cyclic.cloud/";
       const requestUrl = "https://python-patterns-server.onrender.com/";
+      //   const requestUrl = "http://localhost:4000/";
 
       const response = await fetch(requestUrl);
       if (response.ok) {

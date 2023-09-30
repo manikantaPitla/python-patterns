@@ -4,6 +4,10 @@
   font-weight: 500;
 }
 
+.input-code-container {
+  height: 100px ;
+}
+
 .code-and-output {
   height: 230px;
 }

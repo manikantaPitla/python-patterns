@@ -49,17 +49,19 @@ class ManupulateDataCard extends Component {
     return (
       <div className="admin-container">
         <div className="admin-card">
-          <div>
-            {postCodeHeadersList.map((each) => (
-              <PostCodeHeaders
-                key={each.id}
-                postCodeHeadersData={each}
-                isActive={each.id === activeTabId}
-                onClickChangeTabId={this.onClickChangeTabId}
-              />
-            ))}
-            <hr />
-            {this.renderBody()}
+          <div className="admin-scroller">
+            <div>
+              {postCodeHeadersList.map((each) => (
+                <PostCodeHeaders
+                  key={each.id}
+                  postCodeHeadersData={each}
+                  isActive={each.id === activeTabId}
+                  onClickChangeTabId={this.onClickChangeTabId}
+                />
+              ))}
+              <hr />
+              {this.renderBody()}
+            </div>
           </div>
         </div>
       </div>

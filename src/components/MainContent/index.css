@@ -5,3 +5,13 @@
   transition: background-color 0.4s;
   overflow-y: auto;
 }
+
+.main-content::-webkit-scrollbar {
+  background-color: transparent;
+  width: 6px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background-color: var(--color-greyish);
+  border-radius: 4px !important;
+}

@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { v4 } from "uuid";
-import CodeMirrorEditor from "../CodeMirrorEditor";
+import AceCodeEditor from "../AceCodeEditor";
 import Loader from "../Loader";
 
 import "./index.css";
@@ -301,20 +301,24 @@ class PostCode extends Component {
           </div>
           <div className="col-12 col-md-6 p-2 px-3">
             <p className="pc-input-label">Code</p>
-            <CodeMirrorEditor
-              placeholder={CodePlaceholder}
-              className="pc-code-output-ground"
-              code={code}
-            />
+            <div className="pc-code-g-container">
+              <AceCodeEditor
+                placeholder={CodePlaceholder}
+                className="pc-code-output-ground"
+                code={code}
+              />
+            </div>
           </div>
 
           <div className="col-12 col-md-6 p-2 px-3">
             <p className="pc-input-label">Code output</p>
-            <CodeMirrorEditor
-              className="pc-code-output-ground"
-              code={codeOutput}
-              placeholder={outputPlaceholder}
-            />
+            <div className="pc-code-g-container">
+              <AceCodeEditor
+                className="pc-code-output-ground"
+                code={codeOutput}
+                placeholder={outputPlaceholder}
+              />
+            </div>
           </div>
         </div>
       </div>

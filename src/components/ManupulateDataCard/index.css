@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 5;
+  z-index: 10;
 }
 
 .admin-card {
@@ -18,8 +18,24 @@
   background-color: var(--bg-white);
   transition: background-color 0.4s;
   border-radius: 6px;
-  padding: 30px 10px;
+  padding:10px ;
+}
+
+.admin-scroller {
+  width: 100%;
+  height: 100%;
+  padding: 20px 5px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+}
+
+.admin-scroller::-webkit-scrollbar {
+  background-color: transparent;
+  width: 6px;
+}
+
+.admin-scroller::-webkit-scrollbar-thumb {
+  background-color: var(--color-greyish);
+  border-radius: 4px !important;
 }
