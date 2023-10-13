@@ -110,8 +110,9 @@ class Patterns extends Component {
   };
 
   renderSpinner = () => (
-    <div className="loading-spinner-container">
+    <div className="loading-spinner-container d-flex flex-column align-items-center">
       <Loader w="40" />
+      <p className="para mt-3">Please wait while loading.....</p>
     </div>
   );
 

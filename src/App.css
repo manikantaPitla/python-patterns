@@ -4,5 +4,6 @@
   flex-direction: column;
   position: relative;
   font-family: var(--poppins);
+
   color: var(--bg-dark);
 }

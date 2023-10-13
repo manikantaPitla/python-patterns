@@ -1,7 +1,9 @@
 import { Component } from "react";
+
 import Navigation from "./components/Navigation";
 import ContentBody from "./components/ContentBody";
 import ManupulateDataCard from "./components/ManupulateDataCard";
+
 import "./App.css";
 
 class App extends Component {

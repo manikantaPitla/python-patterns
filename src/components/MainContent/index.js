@@ -12,7 +12,7 @@ class MainContent extends Component {
     const { searchInput } = this.props;
 
     return (
-      <div className="main-content">
+      <div className="main-content p-3 p-md-4">
         <Switch>
           <Route exact path="/" component={Home} />
           <Route
